@@ -1,0 +1,2 @@
+/Users/raas/Documents/popcorn_time/android/app/.cxx/Debug/3n6n5f1h/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/raas/Documents/popcorn_time/android/app/.cxx/Debug/3n6n5f1h/armeabi-v7a/CMakeFiles/rebuild_cache.dir
