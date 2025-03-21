@@ -8,7 +8,7 @@ import 'package:popcorn_time/presentation%20/main_screen/bloc/movie_screen_state
 import 'package:popcorn_time/service/api_service.dart';
 
 
-class MovieBloc extends Bloc<MovieEvent, MovieState> {
+class MovieBloc extends Bloc<MovieEvent, MovieListState> {
   HiveService hiveService = HiveService();
 
   MovieBloc() : super(MovieListState()) {
@@ -40,8 +40,11 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   }
 
 
-  void _searchMovies(SearchMoviesEvent event, Emitter<MovieState> emit) async {
+  void _searchMovies( event,emit) async {
+    emit(MovieListState(
+      isLoadingMovies: true,
+    ));
     MovieListModel filteredMovies = await ApiService().searchMovies(event.query);
-    emit(MovieListState(searchedMovies: filteredMovies));
+    emit(MovieListState(movieList: filteredMovies, isLoadingMovies: false));
   }
 }

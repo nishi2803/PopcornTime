@@ -1,19 +1,17 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:popcorn_time/hive/hive_service.dart';
 import 'package:popcorn_time/presentation%20/main_screen/bloc/movie_screen_bloc.dart';
 import 'package:popcorn_time/presentation%20/main_screen/movie_list.dart';
+import 'package:popcorn_time/presentation%20/no_internet_screen.dart' show NoInternetScreen;
+import 'package:popcorn_time/utils/navigation_service.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-/*
-  kReleaseMode ? await dotenv.load(fileName: ".env") :  await dotenv.load(fileName: ".env.development");
-*/
-      () => runApp(
+  HiveService().init();
+   runApp(
         MultiBlocProvider(
           providers: [
 
@@ -49,7 +47,11 @@ class _MyAppState extends State<MyApp> {
         builder: (_, child) {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
-
+          routes: {
+            '/noInternet': (context) =>
+            const NoInternetScreen(),
+          },
+              navigatorKey: NavigationService.instance.navigationKey,
               title: 'PopcornTime',
               theme: ThemeData(
                 fontFamily: 'Mulish',

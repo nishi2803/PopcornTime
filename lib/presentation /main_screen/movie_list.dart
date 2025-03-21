@@ -4,6 +4,7 @@ import 'package:popcorn_time/hive/hive_service.dart';
 import 'package:popcorn_time/presentation%20/main_screen/bloc/movie_screen_bloc.dart';
 import 'package:popcorn_time/presentation%20/main_screen/bloc/movie_screen_events.dart';
 import 'package:popcorn_time/presentation%20/main_screen/bloc/movie_screen_states.dart';
+import 'package:popcorn_time/presentation%20/main_screen/movie_details_screen.dart';
 import 'package:popcorn_time/presentation%20/main_screen/widget/movie_card.dart';
 
 class MovieListScreen extends StatefulWidget {
@@ -18,13 +19,29 @@ class _MovieListScreenState extends State<MovieListScreen> {
 
   @override
   void initState() {
+    context.read<MovieBloc>().add(FetchMoviesEvent(1));
     super.initState();
+  }
+
+
+  Future<void> _navigateToMovieDetails(BuildContext context, movie) async {
+    // Wait for the user to return from the details page
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailsPage(movie: movie),
+      ),
+    );
+
+    // Update UI when coming back
+    setState(() {}); // Triggers rebuild to update favorite state
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Movies")),
+      backgroundColor: Colors.white,
+      appBar: AppBar(title: Text("It's Popcorn Time"), backgroundColor: Colors.white,),
       body: Column(
         children: [
           // Search Bar
@@ -38,6 +55,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
               onChanged: (query) {
+                if(query.length >2)
                 context.read<MovieBloc>().add(SearchMoviesEvent(query));
               },
             ),
@@ -45,10 +63,9 @@ class _MovieListScreenState extends State<MovieListScreen> {
 
           // Movie Grid
           Expanded(
-            child: BlocBuilder<MovieBloc, MovieState>(
+            child: BlocBuilder<MovieBloc, MovieListState>(
               builder: (context, state) {
-                if (state is MovieListState) {
-                  return GridView.builder(
+                  return state.isLoadingMovies ? Center(child: CircularProgressIndicator(),) : GridView.builder(
                     padding: EdgeInsets.all(10),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, // 2 items per row
@@ -61,21 +78,26 @@ class _MovieListScreenState extends State<MovieListScreen> {
                       final movie = state.movieList?.results[index];
                       final isFavorite = HiveService().isFavorite(movie?.id ?? 0);
 
-                      return MovieCard(
-                        movieName: movie?.title ?? "",
-                        isFavorite: isFavorite,
-                        onFavoriteToggle: () {
-                          if (isFavorite) {
-                            context.read<MovieBloc>().add(RemoveFavoriteEvent(movie?.id ?? 0));
-                          } else {
-                            context.read<MovieBloc>().add(MarkFavoriteEvent(movie?.id ?? 0));
-                          }
-                        },
-                      );
+                     return GestureDetector(
+                       onTap: () => _navigateToMovieDetails(context, movie),
+
+                       child: MovieCard(
+                          movie: movie,
+                          isFavorite: isFavorite,
+                          onFavoriteToggle: () {
+                            setState(() {
+                              if (isFavorite) {
+                                HiveService().removeFavorite(movie?.id ?? 0);
+                              } else {
+                                HiveService().addFavorite(movie?.id ?? 0);
+                              }
+                            });
+                          },
+                        ),
+                     );
                     },
                   );
-                }
-                return Center(child: CircularProgressIndicator()); // Show loader while fetching
+                // Show loader while fetching
               },
             ),
           ),

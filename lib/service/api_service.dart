@@ -35,7 +35,7 @@ class ApiService {
    Future<MovieListModel> searchMovies(String query) async {
      try {
        final response = await dio.get(
-         ApiEndpoint.fetchMovies,
+         ApiEndpoint.search,
          queryParameters: {
            "query" : query
          },

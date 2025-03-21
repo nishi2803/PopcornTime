@@ -6,42 +6,42 @@ part 'movie_list_model.g.dart';
 class Movie {
   final bool adult;
   @JsonKey(name: 'backdrop_path')
-  final String backdropPath;
+  final String? backdropPath; // Nullable
   @JsonKey(name: 'genre_ids')
-  final List<int> genreIds;
+  final List<int>? genreIds; // Nullable
   final int id;
   @JsonKey(name: 'original_language')
-  final String originalLanguage;
+  final String? originalLanguage; // Nullable
   @JsonKey(name: 'original_title')
-  final String originalTitle;
-  final String overview;
-  final double popularity;
+  final String? originalTitle; // Nullable
+  final String? overview; // Nullable
+  final double? popularity; // Nullable
   @JsonKey(name: 'poster_path')
-  final String posterPath;
+  final String? posterPath; // Nullable
   @JsonKey(name: 'release_date')
-  final String releaseDate;
-  final String title;
+  final String? releaseDate; // Nullable
+  final String? title; // Nullable
   final bool video;
   @JsonKey(name: 'vote_average')
-  final double voteAverage;
+  final double? voteAverage; // Nullable
   @JsonKey(name: 'vote_count')
-  final int voteCount;
+  final int? voteCount; // Nullable
 
   Movie({
     required this.adult,
-    required this.backdropPath,
-    required this.genreIds,
+    this.backdropPath,
+    this.genreIds,
     required this.id,
-    required this.originalLanguage,
-    required this.originalTitle,
-    required this.overview,
-    required this.popularity,
-    required this.posterPath,
-    required this.releaseDate,
-    required this.title,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.title,
     required this.video,
-    required this.voteAverage,
-    required this.voteCount,
+    this.voteAverage,
+    this.voteCount,
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
@@ -52,8 +52,13 @@ class Movie {
 class MovieListModel {
   final int page;
   final List<Movie> results;
+  @JsonKey(name: 'total_pages')
+  final int totalPages;
+  @JsonKey(name: 'total_results')
+  final int totalResults;
 
-  MovieListModel({required this.page, required this.results});
+
+  MovieListModel({required this.page, required this.results, required this.totalPages, required this.totalResults});
 
   factory MovieListModel.fromJson(Map<String, dynamic> json) => _$MovieListModelFromJson(json);
   Map<String, dynamic> toJson() => _$MovieListModelToJson(this);

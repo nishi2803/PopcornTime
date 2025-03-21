@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:popcorn_time/api/interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 
@@ -25,7 +26,7 @@ Dio getClient({required String baseUrl, required String? token})  {
   );
 
   dioClient.interceptors.add(PrettyDioLogger(requestBody: true, requestHeader: true, responseBody: true));
-
+  dioClient.interceptors.add(CustomDioInterceptor());
 
   return dioClient;
 }
