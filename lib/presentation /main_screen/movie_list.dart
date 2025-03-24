@@ -65,7 +65,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
           Expanded(
             child: BlocBuilder<MovieBloc, MovieListState>(
               builder: (context, state) {
-                  return state.isLoadingMovies ? Center(child: CircularProgressIndicator(),) : GridView.builder(
+                  return state.error != null ? state.isLoadingMovies ? Center(child: CircularProgressIndicator(),) : GridView.builder(
                     padding: EdgeInsets.all(10),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, // 2 items per row
@@ -96,7 +96,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                         ),
                      );
                     },
-                  );
+                  ) : Text(state.error ?? "Give us a moment. Please come back again");
                 // Show loader while fetching
               },
             ),

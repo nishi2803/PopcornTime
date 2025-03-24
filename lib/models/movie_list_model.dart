@@ -6,26 +6,26 @@ part 'movie_list_model.g.dart';
 class Movie {
   final bool adult;
   @JsonKey(name: 'backdrop_path')
-  final String? backdropPath; // Nullable
+  final String? backdropPath;
   @JsonKey(name: 'genre_ids')
-  final List<int>? genreIds; // Nullable
+  final List<int>? genreIds;
   final int id;
   @JsonKey(name: 'original_language')
-  final String? originalLanguage; // Nullable
+  final String? originalLanguage;
   @JsonKey(name: 'original_title')
-  final String? originalTitle; // Nullable
-  final String? overview; // Nullable
-  final double? popularity; // Nullable
+  final String? originalTitle;
+  final String? overview;
+  final double? popularity;
   @JsonKey(name: 'poster_path')
-  final String? posterPath; // Nullable
+  final String? posterPath;
   @JsonKey(name: 'release_date')
-  final String? releaseDate; // Nullable
-  final String? title; // Nullable
+  final String? releaseDate;
+  final String? title;
   final bool video;
   @JsonKey(name: 'vote_average')
-  final double? voteAverage; // Nullable
+  final double? voteAverage;
   @JsonKey(name: 'vote_count')
-  final int? voteCount; // Nullable
+  final int? voteCount;
 
   Movie({
     required this.adult,

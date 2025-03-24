@@ -10,8 +10,7 @@ class MovieListState extends MovieState {
   final bool isFavourite;
   final MovieListModel? movieList;
   final MovieListModel? searchedMovies;
-  final String? moviesError;
-  final String? favoritesError;
+  final String? error;
 
   MovieListState({
     this.isLoadingMovies = false,
@@ -19,8 +18,7 @@ class MovieListState extends MovieState {
     this.isFavourite = false,
     this.movieList,
     this.searchedMovies,
-    this.moviesError,
-    this.favoritesError,
+    this.error
   });
 
   MovieListState copyWith({
@@ -30,14 +28,14 @@ class MovieListState extends MovieState {
     MovieListModel? searchedMovies,
     String? moviesError,
     String? favoritesError,
+    String? error,
   }) {
     return MovieListState(
       isLoadingMovies: isLoadingMovies ?? this.isLoadingMovies,
       isLoadingFavorites: isLoadingFavorites ?? this.isLoadingFavorites,
       movieList: movieList ?? this.movieList,
       searchedMovies: searchedMovies ?? this.searchedMovies,
-      moviesError: moviesError ?? this.moviesError,
-      favoritesError: favoritesError ?? this.favoritesError,
+      error: error ?? this.error
     );
   }
 }
