@@ -25,7 +25,6 @@ class _MovieListScreenState extends State<MovieListScreen> {
 
 
   Future<void> _navigateToMovieDetails(BuildContext context, movie) async {
-    // Wait for the user to return from the details page
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -33,8 +32,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
       ),
     );
 
-    // Update UI when coming back
-    setState(() {}); // Triggers rebuild to update favorite state
+    setState(() {});
   }
 
   @override
@@ -68,10 +66,10 @@ class _MovieListScreenState extends State<MovieListScreen> {
                   return state.error != null ? state.isLoadingMovies ? Center(child: CircularProgressIndicator(),) : GridView.builder(
                     padding: EdgeInsets.all(10),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // 2 items per row
+                      crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      childAspectRatio: 0.8, // Adjust aspect ratio
+                      childAspectRatio: 0.8,
                     ),
                     itemCount: state.movieList?.results.length ?? 0,
                     itemBuilder: (context, index) {
@@ -97,7 +95,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                      );
                     },
                   ) : Text(state.error ?? "Give us a moment. Please come back again");
-                // Show loader while fetching
+
               },
             ),
           ),

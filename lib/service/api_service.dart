@@ -23,7 +23,7 @@ class ApiService {
        );
 
        if (response.statusCode == 200) {
-         return MovieListModel.fromJson(response.data); // List of movies
+         return MovieListModel.fromJson(response.data);
        } else {
          throw Exception("Failed to fetch movies");
        }
@@ -42,7 +42,7 @@ class ApiService {
        );
 
        if (response.statusCode == 200) {
-         return MovieListModel.fromJson(response.data); // List of movies
+         return MovieListModel.fromJson(response.data);
        } else {
          throw Exception("Failed to fetch movies");
        }

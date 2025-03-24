@@ -20,13 +20,11 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
       appBar: AppBar(
         title: Text(widget.movie.title ?? ''),
         backgroundColor: Colors.white,
-
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             ClipRRect(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
               child: Image.network(
@@ -36,8 +34,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                 fit: BoxFit.cover,
               ),
             ),
-
-
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -49,7 +45,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                     children: [
                       Text(
                         widget.movie.title ?? '',
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -72,13 +69,13 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
                   SizedBox(height: 8),
 
-                  // Ratings & Popularity
                   Row(
                     children: [
                       Icon(Icons.star, color: Colors.amber),
                       Text(
                         ' ${widget.movie.voteAverage} / 10 ',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(width: 10),
                       Text(
@@ -89,7 +86,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                   ),
 
                   SizedBox(height: 16),
-
 
                   Text(
                     "Overview",
@@ -103,13 +99,10 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
                   SizedBox(height: 20),
 
-
                   Text(
                     "Release Date: ${widget.movie.releaseDate}",
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-
-
                 ],
               ),
             ),
